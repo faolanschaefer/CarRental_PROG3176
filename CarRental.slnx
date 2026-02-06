@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Applications/" />
+  <Folder Name="/WebServices/" />
+  <Folder Name="/WebServices/VehicleInventory/">
+    <Project Path="Assignment1_8878889/VehicleInventory.Application.csproj" />
+    <Project Path="VehicleInventory.Infrastructure/VehicleInventory.Infrastructure.csproj" Id="5c16fcc8-d33e-433e-8c26-ee32b0d927f8" />
+    <Project Path="VehicleRental.Domain/VehicleInventory.Domain.csproj" Id="7e24ba63-c016-4248-b3d8-93011d50d2f4" />
+  </Folder>
+</Solution>
