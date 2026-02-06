@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace VehicleInventory.Infrastructure.Models;
+
+[Table("Inventory_8878889")]
+public partial class Inventory8878889
+{
+    [Key]
+    public int Id { get; set; }
+
+    public int VehicleId { get; set; }
+
+    public int VehicleLocationId { get; set; }
+
+    public int VehicleStatusId { get; set; }
+
+    public DateTime LastUpdated { get; set; }
+
+    [ForeignKey("VehicleId")]
+    [InverseProperty("Inventory8878889s")]
+    public virtual Vehicle8878889 Vehicle { get; set; } = null!;
+
+    [ForeignKey("VehicleLocationId")]
+    [InverseProperty("Inventory8878889s")]
+    public virtual VehicleLocation8878889 VehicleLocation { get; set; } = null!;
+
+    [ForeignKey("VehicleStatusId")]
+    [InverseProperty("Inventory8878889s")]
+    public virtual VehicleStatus8878889 VehicleStatus { get; set; } = null!;
+}

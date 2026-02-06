@@ -15,4 +15,8 @@
     <Folder Include="ValueObjects\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VehicleInventory.Infrastructure\VehicleInventory.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
