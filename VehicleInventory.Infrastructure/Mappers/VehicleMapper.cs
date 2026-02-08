@@ -4,9 +4,9 @@ using VehicleInventory.Infrastructure.Models;
 
 namespace VehicleInventory.Infrastructure.Mappers
 {
-    public static class DomainMapper
+    public static class VehicleMapper
     {
-        public static Vehicle MapToDomain(Inventory8878889 dbEntity)
+        public static Vehicle MapDbToDomain(Inventory8878889 dbEntity)
         {
             return new Vehicle(
                 id: dbEntity.Id,
@@ -17,7 +17,7 @@ namespace VehicleInventory.Infrastructure.Mappers
             );
         }
 
-        public static VehicleStatus MapStatus(string statusName)
+        private static VehicleStatus MapStatus(string statusName)
         {
             return statusName switch
             {
@@ -26,6 +26,24 @@ namespace VehicleInventory.Infrastructure.Mappers
                 "Rented" => VehicleStatus.Rented,
                 "Serviced" => VehicleStatus.Serviced,
                 _ => throw new ArgumentException($"Unknown status name: {statusName}")
+            };
+        }
+
+        internal static Inventory8878889 MapDomainToDb(Vehicle vehicle)
+        {
+            return new Inventory8878889
+            {
+                Id = vehicle.Id,
+                VehicleLocationId = vehicle.LocationId,
+                Vehicle = new Vehicle8878889
+                {
+                    Make = vehicle.VehicleType.Make,
+                    Model = vehicle.VehicleType.Model
+                },
+                VehicleStatus = new VehicleStatus8878889
+                {
+                    Name = vehicle.Status.ToString()
+                }
             };
         }
     }
