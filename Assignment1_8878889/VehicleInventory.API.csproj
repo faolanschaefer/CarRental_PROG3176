@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -34,8 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VehicleInventory.Infrastructure\VehicleInventory.Infrastructure.csproj" />
-    <ProjectReference Include="..\VehicleRental.Domain\VehicleInventory.Domain.csproj" />
+    <ProjectReference Include="..\VehicleInventory.Application\VehicleInventory.Application.csproj" />
   </ItemGroup>
 
 </Project>
