@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using VehicleInventory.Infrastructure.Models;
 
 namespace VehicleInventory.Infrastructure.Data;
 
-public partial class VehivleInventoryContext : DbContext
+public partial class VehicleInventoryContext : DbContext
 {
-    public VehivleInventoryContext()
+    public VehicleInventoryContext()
     {
     }
 
-    public VehivleInventoryContext(DbContextOptions<VehivleInventoryContext> options)
+    public VehicleInventoryContext(DbContextOptions<VehicleInventoryContext> options)
         : base(options)
     {
     }

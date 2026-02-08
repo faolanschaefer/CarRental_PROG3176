@@ -1,6 +1,5 @@
 using VehicleInventory.Application.DTOs;
 using VehicleInventory.Application.Interfaces;
-using VehicleInventory.Domain.Aggregates;
 
 namespace VehicleInventory.Application.Services;
 
