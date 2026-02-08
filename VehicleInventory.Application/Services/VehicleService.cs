@@ -1,8 +1,10 @@
 using VehicleInventory.Application.DTOs;
 using VehicleInventory.Application.Interfaces;
+using VehicleInventory.Domain.Aggregates;
 
 namespace VehicleInventory.Application.Services;
 
+// TODO: Implement methods using VehicleRepository
 public class VehicleService
 {
     private readonly IVehicleRepository _repository;
@@ -12,15 +14,28 @@ public class VehicleService
         _repository = repository;
     }
 
-    public async Task<VehicleDto> RentVehicleAsync(int vehicleId)
+    public VehicleDto CreateVehicle(int id, string status)
     {
-        Vehicle vehicle = await _repository.GetByIdAsync(vehicleId);
-        
-        // Call domain behavior (enforces rules)
-        vehicle.MarkRented();
-        
-        await _repository.UpdateAsync(vehicle);
-        
-        return MapToDto(vehicle);
+        throw new NotImplementedException();
+    }
+
+    public VehicleDto GetVehicleById(int id, string status)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<VehicleDto> GetAllVehicles(int id, string status)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void UpdateVehicleStatus(int id, string status)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void DeleteVehicle(int id, string status)
+    {
+        throw new NotImplementedException();
     }
 }
