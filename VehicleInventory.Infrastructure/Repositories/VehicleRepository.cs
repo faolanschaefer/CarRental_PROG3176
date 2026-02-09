@@ -3,6 +3,7 @@ using VehicleInventory.Infrastructure.Data;
 using VehicleInventory.Domain.Entities;
 using VehicleInventory.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
+using VehicleInventory.Domain.Enums;
 
 namespace VehicleInventory.Infrastructure.Repositories
 {
@@ -19,7 +20,7 @@ namespace VehicleInventory.Infrastructure.Repositories
         public Inventory Create(Inventory vehicle)
         {
             var createdVehicle = _context.Vehicles.Add(MapToDb(vehicle.Vehicle)).Entity;
-            vehicle.Vehicle.Id = createdVehicle.Id; 
+            vehicle.Vehicle.Id = createdVehicle.Id;
             var createdInventory = _context.Inventory.Add(MapToDb(vehicle)).Entity;
 
             _context.SaveChanges();
@@ -81,7 +82,7 @@ namespace VehicleInventory.Infrastructure.Repositories
             inventoryDb.VehicleId = vehicle.Vehicle.Id;
             inventoryDb.LastUpdated = vehicle.LastUpdated; // TODO: UTC now? Where is this updated?
             inventoryDb.VehicleLocationId = vehicle.VehicleLocation.Id; // TODO: Validate?
-            inventoryDb.VehicleStatusId = vehicle.VehicleStatus.Id; // TODO: Validate?
+            inventoryDb.VehicleStatusId = MapToDb(vehicle.VehicleStatus).Id; // TODO: Validate?
 
             var vehicleDb = _context.Vehicles.Find(vehicle.Vehicle.Id);
             if (vehicleDb == null)
@@ -102,7 +103,7 @@ namespace VehicleInventory.Infrastructure.Repositories
                 Id = vehicle.Id,
                 VehicleId = vehicle.Vehicle.Id,
                 VehicleLocationId = vehicle.VehicleLocation.Id,
-                VehicleStatusId = vehicle.VehicleStatus.Id,
+                VehicleStatusId = MapToDb(vehicle.VehicleStatus).Id,
                 LastUpdated = vehicle.LastUpdated
             };
         }
@@ -158,11 +159,17 @@ namespace VehicleInventory.Infrastructure.Repositories
         }
         private VehicleStatus MapToDomain(VehicleStatus8878889 statusDb)
         {
-            return new VehicleStatus
+            return Enum.Parse<VehicleStatus>(statusDb.Name);
+        }
+
+        private VehicleStatus8878889 MapToDb(VehicleStatus status)
+        {
+            var statusDb = _context.VehicleStatuses.FirstOrDefault(s => s.Name == status.ToString());
+            if (statusDb == null)
             {
-                Id = statusDb.Id,
-                Name = statusDb.Name
-            };
+                throw new Exception($"VehicleStatus '{status}' not found in database."); // TODO: Specify exception type
+            }
+            return statusDb;
         }
     }
 }

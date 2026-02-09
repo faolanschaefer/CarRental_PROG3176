@@ -1,4 +1,6 @@
-﻿namespace VehicleInventory.Domain.Entities
+﻿using VehicleInventory.Domain.Enums;
+
+namespace VehicleInventory.Domain.Entities
 {
     public class Inventory
     {
@@ -10,6 +12,6 @@
 
         public VehicleLocation VehicleLocation { get; set; } = null!;
 
-        public VehicleStatus VehicleStatus { get; set; } = null!;
+        public VehicleStatus VehicleStatus { get; set; }
     }
 }
