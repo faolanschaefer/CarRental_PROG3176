@@ -18,14 +18,14 @@ public partial class Inventory8878889
     public DateTime LastUpdated { get; set; }
 
     [ForeignKey("VehicleId")]
-    [InverseProperty("Inventory8878889s")]
+    [InverseProperty("Inventory")]
     public virtual Vehicle8878889 Vehicle { get; set; } = null!;
 
     [ForeignKey("VehicleLocationId")]
-    [InverseProperty("Inventory8878889s")]
+    [InverseProperty("Inventory")]
     public virtual VehicleLocation8878889 VehicleLocation { get; set; } = null!;
 
     [ForeignKey("VehicleStatusId")]
-    [InverseProperty("Inventory8878889s")]
+    [InverseProperty("Inventory")]
     public virtual VehicleStatus8878889 VehicleStatus { get; set; } = null!;
 }

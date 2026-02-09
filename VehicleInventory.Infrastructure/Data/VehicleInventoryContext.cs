@@ -14,15 +14,15 @@ public partial class VehicleInventoryContext : DbContext
     {
     }
 
-    public virtual DbSet<Inventory8878889> Inventory8878889s { get; set; }
+    public virtual DbSet<Inventory8878889> Inventory { get; set; }
 
-    public virtual DbSet<Vehicle8878889> Vehicle8878889s { get; set; }
+    public virtual DbSet<Vehicle8878889> Vehicles { get; set; }
 
-    public virtual DbSet<VehicleLocation8878889> VehicleLocation8878889s { get; set; }
+    public virtual DbSet<VehicleLocation8878889> VehicleLocations { get; set; }
 
-    public virtual DbSet<VehicleStatus8878889> VehicleStatus8878889s { get; set; }
+    public virtual DbSet<VehicleStatus8878889> VehicleStatuses { get; set; }
 
-    public virtual DbSet<VehicleType8878889> VehicleType8878889s { get; set; }
+    public virtual DbSet<VehicleType8878889> VehicleTypes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -36,15 +36,15 @@ public partial class VehicleInventoryContext : DbContext
 
             entity.Property(e => e.LastUpdated).HasDefaultValueSql("(sysdatetime())");
 
-            entity.HasOne(d => d.Vehicle).WithMany(p => p.Inventory8878889s)
+            entity.HasOne(d => d.Vehicle).WithMany(p => p.Inventory)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Inventory_Vehicle");
 
-            entity.HasOne(d => d.VehicleLocation).WithMany(p => p.Inventory8878889s)
+            entity.HasOne(d => d.VehicleLocation).WithMany(p => p.Inventory)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Inventory_VehicleLocation");
 
-            entity.HasOne(d => d.VehicleStatus).WithMany(p => p.Inventory8878889s)
+            entity.HasOne(d => d.VehicleStatus).WithMany(p => p.Inventory)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Inventory_VehicleStatus");
         });
@@ -53,7 +53,7 @@ public partial class VehicleInventoryContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__Vehicle___3214EC0711D833DE");
 
-            entity.HasOne(d => d.VehicleType).WithMany(p => p.Vehicle8878889s)
+            entity.HasOne(d => d.VehicleType).WithMany(p => p.Vehicles)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Vehicle_VehicleType");
         });

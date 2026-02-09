@@ -15,5 +15,5 @@ public partial class VehicleType8878889
     public string Name { get; set; } = null!;
 
     [InverseProperty("VehicleType")]
-    public virtual ICollection<Vehicle8878889> Vehicle8878889s { get; set; } = new List<Vehicle8878889>();
+    public virtual ICollection<Vehicle8878889> Vehicles { get; set; } = new List<Vehicle8878889>();
 }

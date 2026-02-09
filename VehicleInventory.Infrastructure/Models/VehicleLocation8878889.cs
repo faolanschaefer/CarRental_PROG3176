@@ -15,5 +15,5 @@ public partial class VehicleLocation8878889
     public string Name { get; set; } = null!;
 
     [InverseProperty("VehicleLocation")]
-    public virtual ICollection<Inventory8878889> Inventory8878889s { get; set; } = new List<Inventory8878889>();
+    public virtual ICollection<Inventory8878889> Inventory { get; set; } = new List<Inventory8878889>();
 }

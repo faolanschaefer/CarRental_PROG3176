@@ -18,9 +18,9 @@ public partial class Vehicle8878889
     public int VehicleTypeId { get; set; }
 
     [InverseProperty("Vehicle")]
-    public virtual ICollection<Inventory8878889> Inventory8878889s { get; set; } = new List<Inventory8878889>();
+    public virtual ICollection<Inventory8878889> Inventory { get; set; } = new List<Inventory8878889>();
 
     [ForeignKey("VehicleTypeId")]
-    [InverseProperty("Vehicle8878889s")]
+    [InverseProperty("Vehicles")]
     public virtual VehicleType8878889 VehicleType { get; set; } = null!;
 }
