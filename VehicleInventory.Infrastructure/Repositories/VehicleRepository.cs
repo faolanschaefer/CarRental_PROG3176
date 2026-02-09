@@ -1,9 +1,6 @@
 ﻿using VehicleInventory.Application.Interfaces;
-using VehicleInventory.Domain.Aggregates;
-using Microsoft.EntityFrameworkCore;
 using VehicleInventory.Infrastructure.Data;
-using VehicleInventory.Infrastructure.Mappers;
-using VehicleInventory.Infrastructure.Models;
+using VehicleInventory.Domain.Entities;
 
 namespace VehicleInventory.Infrastructure.Repositories
 {
@@ -17,7 +14,7 @@ namespace VehicleInventory.Infrastructure.Repositories
             _context = context;
         }
 
-        public Vehicle Create(Vehicle vehicle)
+        public Inventory Create(Inventory vehicle)
         {
             throw new NotImplementedException();
         }
@@ -27,17 +24,17 @@ namespace VehicleInventory.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Vehicle> GetAll()
+        public IEnumerable<Inventory> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Vehicle GetById(int id)
+        public Inventory GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Vehicle vehicle)
+        public void Update(Inventory vehicle)
         {
             throw new NotImplementedException();
         }

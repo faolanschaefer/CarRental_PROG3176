@@ -1,15 +1,13 @@
-﻿using VehicleInventory.Domain.ValueObjects;
-
-namespace VehicleInventory.Domain.Aggregates
+﻿namespace VehicleInventory.Domain.Aggregates
 {
-    public class Vehicle
+    public class VehicleAggregate
     {
         public int Id { get; private set; }
         public string VehicleCode { get; private set; }
         public int LocationId { get; private set; }
         public VehicleType VehicleType { get; private set; }
         public VehicleStatus Status { get; private set; }
-        public Vehicle (int id, string vehicleCode, int locationId, VehicleType vehicleType, VehicleStatus status)
+        public VehicleAggregate(int id, string vehicleCode, int locationId, VehicleType vehicleType, VehicleStatus status)
         {
             Id = id;
             VehicleCode = vehicleCode;
@@ -21,7 +19,7 @@ namespace VehicleInventory.Domain.Aggregates
         {
             if (Status == VehicleStatus.Reserved)
                 throw new InvalidOperationException("Cannot mark a reserved vehicle as available without explicit release.");
-            
+
             Status = VehicleStatus.Available;
         }
 
@@ -29,7 +27,7 @@ namespace VehicleInventory.Domain.Aggregates
         {
             if (Status != VehicleStatus.Reserved)
                 throw new InvalidOperationException("Only reserved vehicles can be released.");
-            
+
             Status = VehicleStatus.Available;
         }
 
