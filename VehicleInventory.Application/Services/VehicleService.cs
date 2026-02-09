@@ -1,9 +1,11 @@
 using VehicleInventory.Application.DTOs;
 using VehicleInventory.Application.Interfaces;
+using VehicleInventory.Domain.Entities;
+using VehicleInventory.Domain.Enums;
 
 namespace VehicleInventory.Application.Services;
 
-// TODO: Implement methods using VehicleRepository
+// TODO: Refactor to use domain services and aggregate roots 
 public class VehicleService
 {
     private readonly IVehicleRepository _repository;
@@ -13,28 +15,34 @@ public class VehicleService
         _repository = repository;
     }
 
-    public VehicleDto CreateVehicle(int id, string status)
+    public Inventory CreateVehicle(Inventory vehicle)
     {
-        throw new NotImplementedException();
+        return _repository.Create(vehicle);
     }
 
-    public VehicleDto GetVehicleById(int id, string status)
+    public Inventory GetVehicleById(int id)
     {
-        throw new NotImplementedException();
+        return _repository.GetById(id);
     }
 
-    public IEnumerable<VehicleDto> GetAllVehicles(int id, string status)
+    public IEnumerable<Inventory> GetAllVehicles()
     {
-        throw new NotImplementedException();
+        return _repository.GetAll();
     }
 
     public void UpdateVehicleStatus(int id, string status)
     {
-        throw new NotImplementedException();
+        var vehicle = _repository.GetById(id);
+        if (vehicle == null)
+        {
+            throw new Exception("Vehicle not found");
+        }
+        vehicle.VehicleStatus = Enum.Parse<VehicleStatus>(status); // TODO: Handle status via aggregate root/domain entity
+        _repository.Update(vehicle);
     }
 
-    public void DeleteVehicle(int id, string status)
+    public void DeleteVehicle(int id)
     {
-        throw new NotImplementedException();
+        _repository.Delete(id);
     }
 }
