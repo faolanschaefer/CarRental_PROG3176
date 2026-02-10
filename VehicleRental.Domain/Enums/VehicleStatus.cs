@@ -4,7 +4,7 @@
     {
         Available,
         Rented,
-        Serviced,
+        Maintenance,
         Reserved
     }
 }
