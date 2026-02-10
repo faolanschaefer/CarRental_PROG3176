@@ -108,7 +108,7 @@ namespace VehicleInventory.Infrastructure.Repositories
             };
         }
 
-        private Inventory MapToDomain(Inventory8878889 inventoryDb)
+        private static Inventory MapToDomain(Inventory8878889 inventoryDb)  
         {
             return new Inventory
             {
@@ -131,7 +131,7 @@ namespace VehicleInventory.Infrastructure.Repositories
             };
         }
 
-        private Vehicle MapToDomain(Vehicle8878889 vehicleDb)
+        private static Vehicle MapToDomain(Vehicle8878889 vehicleDb)
         {
             return new Vehicle
             {
@@ -141,7 +141,7 @@ namespace VehicleInventory.Infrastructure.Repositories
                 VehicleType = MapToDomain(vehicleDb.VehicleType)
             };
         }
-        private VehicleType MapToDomain(VehicleType8878889 vehicleTypeDb)
+        private static VehicleType MapToDomain(VehicleType8878889 vehicleTypeDb)
         {
             return new VehicleType
             {
@@ -149,7 +149,7 @@ namespace VehicleInventory.Infrastructure.Repositories
                 Name = vehicleTypeDb.Name
             };
         }
-        private VehicleLocation MapToDomain(VehicleLocation8878889 locationDb)
+        private static VehicleLocation MapToDomain(VehicleLocation8878889 locationDb)
         {
             return new VehicleLocation
             {
@@ -157,7 +157,7 @@ namespace VehicleInventory.Infrastructure.Repositories
                 Name = locationDb.Name
             };
         }
-        private VehicleStatus MapToDomain(VehicleStatus8878889 statusDb)
+        private static VehicleStatus MapToDomain(VehicleStatus8878889 statusDb)
         {
             return Enum.Parse<VehicleStatus>(statusDb.Name);
         }
