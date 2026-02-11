@@ -141,9 +141,9 @@ namespace VehicleInventory.Infrastructure.Repositories
                 VehicleType = MapToDomain(vehicleDb.VehicleType)
             };
         }
-        private static VehicleType MapToDomain(VehicleType8878889 vehicleTypeDb)
+        private static Domain.Entities.VehicleType MapToDomain(VehicleType8878889 vehicleTypeDb)
         {
-            return new VehicleType
+            return new Domain.Entities.VehicleType
             {
                 Id = vehicleTypeDb.Id,
                 Name = vehicleTypeDb.Name
