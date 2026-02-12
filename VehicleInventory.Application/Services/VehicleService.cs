@@ -1,8 +1,5 @@
-using VehicleInventory.Application.DTOs;
 using VehicleInventory.Application.Interfaces;
 using VehicleInventory.Domain.Aggregates;
-using VehicleInventory.Domain.Entities;
-using VehicleInventory.Domain.Enums;
 
 namespace VehicleInventory.Application.Services;
 
@@ -23,7 +20,8 @@ public class VehicleService
 
     public VehicleAggregate GetVehicleById(int id)
     {
-        return _repository.GetById(id);
+        return _repository.GetById(id)
+            ?? throw new KeyNotFoundException($"Vehicle with ID {id} not found.");
     }
 
     public IEnumerable<VehicleAggregate> GetAllVehicles()
@@ -33,7 +31,8 @@ public class VehicleService
 
     public void UpdateVehicleStatus(int id, string status)
     {
-        VehicleAggregate vehicle = _repository.GetById(id);
+        VehicleAggregate vehicle = _repository.GetById(id)
+            ?? throw new KeyNotFoundException($"Vehicle with ID {id} not found.");
 
         switch (status)
         {
@@ -56,8 +55,17 @@ public class VehicleService
         _repository.Update(vehicle);
     }
 
-    // TODO: Implement UpdateVehicleLocation and UpdateVehicleType methods?
-    // TODO: Implement ReleaseVehicleReservation method
+    // TODO: Implement UpdateVehicleLocation and UpdateVehicle methods?
+
+    public void ReleaseVehicleReservation(int id)
+    {
+        VehicleAggregate vehicle = _repository.GetById(id)
+            ?? throw new KeyNotFoundException($"Vehicle with ID {id} not found.");
+
+        vehicle.ReleaseReservation();
+
+        _repository.Update(vehicle);
+    }
 
     public void DeleteVehicle(int id)
     {

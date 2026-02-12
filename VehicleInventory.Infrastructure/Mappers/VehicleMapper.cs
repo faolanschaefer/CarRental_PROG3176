@@ -1,6 +1,4 @@
 ﻿using VehicleInventory.Domain.Aggregates;
-using VehicleInventory.Domain.Entities;
-using VehicleInventory.Domain.Enums;
 using VehicleInventory.Infrastructure.Models;
 
 namespace VehicleInventory.Infrastructure.Mappers

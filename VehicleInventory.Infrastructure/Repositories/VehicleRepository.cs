@@ -7,7 +7,6 @@ using VehicleInventory.Infrastructure.Models;
 
 namespace VehicleInventory.Infrastructure.Repositories
 {
-    // TODO: Implement methods using VehicleInventoryContext
     public class VehicleRepository : IVehicleRepository
     {
         private readonly VehicleInventoryContext _context;
@@ -19,7 +18,7 @@ namespace VehicleInventory.Infrastructure.Repositories
 
         public VehicleAggregate Create(VehicleAggregate vehicle)
         {
-            var createdInventory = _context.Inventory.Add(VehicleMapper.MapToDb(vehicle)).Entity;
+            Inventory8878889 createdInventory = _context.Inventory.Add(VehicleMapper.MapToDb(vehicle)).Entity;
             _context.SaveChanges();
 
             return VehicleMapper.MapToDomain(createdInventory);
@@ -28,12 +27,8 @@ namespace VehicleInventory.Infrastructure.Repositories
         public void Delete(int id)
         {
             Inventory8878889 inventory = _context.Inventory.Find(id)
-                ?? throw new Exception($"Inventory with ID {id} not found."); // TODO: Specify exception type
+                ?? throw new KeyNotFoundException($"Inventory with ID {id} not found."); 
 
-            Vehicle8878889 vehicle = _context.Vehicles.Find(inventory.VehicleId)
-                ?? throw new Exception($"Vehicle with ID {inventory.VehicleId} not found."); // TODO: Specify exception type
-
-            _context.Vehicles.Remove(vehicle);
             _context.Inventory.Remove(inventory);
 
             _context.SaveChanges();
@@ -46,19 +41,20 @@ namespace VehicleInventory.Infrastructure.Repositories
                     .ThenInclude(v => v.VehicleType)
                 .Include(i => i.VehicleLocation)
                 .Include(i => i.VehicleStatus)
-                .Select(inventoryDb => VehicleMapper.MapToDomain(inventoryDb))
+                .Select(i => VehicleMapper.MapToDomain(i))
                 .ToList();
         }
 
-        public VehicleAggregate GetById(int id)
+        public VehicleAggregate? GetById(int id)
         {
-            Inventory8878889 inventory = _context.Inventory
+            Inventory8878889? inventory = _context.Inventory
                 .Include(i => i.Vehicle)
                     .ThenInclude(v => v.VehicleType)
                 .Include(i => i.VehicleLocation)
                 .Include(i => i.VehicleStatus)
-                .FirstOrDefault(i => i.Id == id)
-                ?? throw new Exception($"Inventory with ID {id} not found."); // TODO: Specify exception type
+                .FirstOrDefault(i => i.Id == id);
+
+            if (inventory is null) return null;
 
             return VehicleMapper.MapToDomain(inventory);
         }
@@ -66,7 +62,7 @@ namespace VehicleInventory.Infrastructure.Repositories
         public void Update(VehicleAggregate vehicle)
         {
             Inventory8878889 inventory = _context.Inventory.Find(vehicle.Id)
-                ?? throw new Exception($"Inventory with ID {vehicle.Id} not found."); // TODO: Specify exception type
+                ?? throw new KeyNotFoundException($"Inventory with ID {vehicle.Id} not found."); 
 
             inventory.VehicleId = vehicle.VehicleId;
             inventory.VehicleLocationId = vehicle.LocationId;

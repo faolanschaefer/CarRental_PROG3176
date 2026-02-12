@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VehicleInventory.Application.DTOs;
 using VehicleInventory.Application.Services;
 using VehicleInventory.Domain.Aggregates;
-using VehicleInventory.Domain.Entities;
 
 namespace VehicleInventory.API.Controllers
 {
@@ -43,6 +41,20 @@ namespace VehicleInventory.API.Controllers
         {
             _service.UpdateVehicleStatus(id, request); // TODO: Catch exception
             return NoContent();
+        }
+
+        [HttpPut("{id}/release")]
+        public IActionResult ReleaseReservation(int id)
+        {
+            try
+            {
+                _service.ReleaseVehicleReservation(id); 
+                return NoContent();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
