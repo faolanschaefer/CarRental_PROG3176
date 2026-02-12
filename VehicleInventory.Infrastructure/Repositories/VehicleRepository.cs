@@ -18,10 +18,10 @@ namespace VehicleInventory.Infrastructure.Repositories
 
         public VehicleAggregate Create(VehicleAggregate vehicle)
         {
-            Inventory8878889 createdInventory = _context.Inventory.Add(VehicleMapper.MapToDb(vehicle)).Entity;
+            Inventory8878889 createdInventory = _context.Inventory.Add(VehicleMapper.VehicleAggregateToInventory(vehicle)).Entity;
             _context.SaveChanges();
 
-            return VehicleMapper.MapToDomain(createdInventory);
+            return VehicleMapper.InventoryToVehicleAggregate(createdInventory);
         }
 
         public void Delete(int id)
@@ -39,9 +39,7 @@ namespace VehicleInventory.Infrastructure.Repositories
             return _context.Inventory
                 .Include(i => i.Vehicle)
                     .ThenInclude(v => v.VehicleType)
-                .Include(i => i.VehicleLocation)
-                .Include(i => i.VehicleStatus)
-                .Select(i => VehicleMapper.MapToDomain(i))
+                .Select(i => VehicleMapper.InventoryToVehicleAggregate(i))
                 .ToList();
         }
 
@@ -50,13 +48,11 @@ namespace VehicleInventory.Infrastructure.Repositories
             Inventory8878889? inventory = _context.Inventory
                 .Include(i => i.Vehicle)
                     .ThenInclude(v => v.VehicleType)
-                .Include(i => i.VehicleLocation)
-                .Include(i => i.VehicleStatus)
                 .FirstOrDefault(i => i.Id == id);
 
             if (inventory is null) return null;
 
-            return VehicleMapper.MapToDomain(inventory);
+            return VehicleMapper.InventoryToVehicleAggregate(inventory);
         }
 
         public void Update(VehicleAggregate vehicle)
@@ -66,7 +62,7 @@ namespace VehicleInventory.Infrastructure.Repositories
 
             inventory.VehicleId = vehicle.VehicleId;
             inventory.VehicleLocationId = vehicle.LocationId;
-            inventory.VehicleStatusId = VehicleMapper.MapToId(vehicle.Status);
+            inventory.VehicleStatusId = VehicleMapper.StatusToId(vehicle.Status);
             inventory.LastUpdated = DateTime.UtcNow;
 
             _context.SaveChanges();
