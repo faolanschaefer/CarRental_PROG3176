@@ -1,6 +1,9 @@
 <Solution>
   <Folder Name="/Applications/" />
   <Folder Name="/WebServices/" />
+  <Folder Name="/WebServices/CustomerProfile/">
+    <Project Path="CustomerProfile.WebAPI/CustomerProfile.WebAPI.csproj" />
+  </Folder>
   <Folder Name="/WebServices/VehicleInventory/">
     <Project Path="VehicleInventory.Application/VehicleInventory.Application.csproj" Id="3a4cf5ec-f370-4aad-965b-cdbfe0140d0b" />
     <Project Path="VehicleInventory.Domain/VehicleInventory.Domain.csproj" />
