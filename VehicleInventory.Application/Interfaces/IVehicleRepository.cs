@@ -1,13 +1,14 @@
-﻿using VehicleInventory.Domain.Entities;
+﻿using VehicleInventory.Domain.Aggregates;
+using VehicleInventory.Domain.Entities;
 
 namespace VehicleInventory.Application.Interfaces
 {
     public interface IVehicleRepository
     {
-        Inventory Create(Inventory vehicle);
-        Inventory GetById(int id);
-        IEnumerable<Inventory> GetAll();
-        void Update(Inventory vehicle);
+        VehicleAggregate Create(VehicleAggregate vehicle);
+        VehicleAggregate GetById(int id);
+        IEnumerable<VehicleAggregate> GetAll();
+        void Update(VehicleAggregate vehicle);
         void Delete(int id);
 
     }

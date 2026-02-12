@@ -1,52 +1,60 @@
 ﻿using VehicleInventory.Domain.Enums;
+using VehicleInventory.Domain.ValueObjects;
 
 namespace VehicleInventory.Domain.Aggregates
 {
     public class VehicleAggregate
     {
         public int Id { get; private set; }
-        public int VehicleId{ get; private set; }
+        public int VehicleId { get; private set; }
+        public VehicleMake Make { get; private set; }
+        public VehicleModel Model { get; private set; }
         public int LocationId { get; private set; }
         public VehicleType VehicleType { get; private set; }
-        public VehicleStatus VehicleStatus { get; private set; }
-        public VehicleAggregate(int id, int vehicleId, int locationId, VehicleType vehicleType, VehicleStatus vehicleStatus)
+        public VehicleStatus Status { get; private set; }
+
+        public VehicleAggregate(int vehicleId, VehicleMake make, VehicleModel model, int locationId, VehicleType vehicleType, VehicleStatus status)
         {
-            Id = id;
             VehicleId = vehicleId;
+            Make = make;
+            Model = model;
             LocationId = locationId;
             VehicleType = vehicleType;
-            VehicleStatus = vehicleStatus;
+            Status = status;
         }
+
         public void MarkAvailable()
         {
-            if (VehicleStatus == VehicleStatus.Reserved)
+            if (Status == VehicleStatus.Reserved)
                 throw new InvalidOperationException("Cannot mark a reserved vehicle as available without explicit release.");
 
-            VehicleStatus = VehicleStatus.Available;
+            Status = VehicleStatus.Available;
         }
 
         public void ReleaseReservation()
         {
-            if (VehicleStatus != VehicleStatus.Reserved)
+            if (Status != VehicleStatus.Reserved)
                 throw new InvalidOperationException("Only reserved vehicles can be released.");
 
-            VehicleStatus = VehicleStatus.Available;
+            Status = VehicleStatus.Available;
         }
 
-        public void MarkReserved() => VehicleStatus = VehicleStatus.Reserved;
-        public void MarkServiced() => VehicleStatus = VehicleStatus.Maintenance;
+        public void MarkReserved() => Status = VehicleStatus.Reserved;
+
+        public void MarkMaintenance() => Status = VehicleStatus.Maintenance;
+
         public void MarkRented()
         {
-            if (VehicleStatus == VehicleStatus.Rented)
+            if (Status == VehicleStatus.Rented)
                 throw new InvalidOperationException("Vehicle is already rented.");
 
-            if (VehicleStatus == VehicleStatus.Reserved)
+            if (Status == VehicleStatus.Reserved)
                 throw new InvalidOperationException("Cannot rent a reserved vehicle.");
 
-            if (VehicleStatus == VehicleStatus.Maintenance)
+            if (Status == VehicleStatus.Maintenance)
                 throw new InvalidOperationException("Cannot rent a vehicle under service.");
 
-            VehicleStatus = VehicleStatus.Rented;
+            Status = VehicleStatus.Rented;
         }
     }
 }
