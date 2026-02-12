@@ -59,8 +59,9 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'car-rental'
+          app-name: 'maintenance-webapi'
           slot-name: 'Production'
           package: .
 
           
+
