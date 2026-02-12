@@ -1,4 +1,5 @@
 ﻿using VehicleInventory.Domain.Aggregates;
+using VehicleInventory.Domain.Enums;
 using VehicleInventory.Infrastructure.Models;
 
 namespace VehicleInventory.Infrastructure.Mappers
@@ -11,6 +12,11 @@ namespace VehicleInventory.Infrastructure.Mappers
         }
 
         internal static VehicleAggregate MapToDomain(Inventory8878889 inventory)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static int MapToId(VehicleStatus status)
         {
             throw new NotImplementedException();
         }

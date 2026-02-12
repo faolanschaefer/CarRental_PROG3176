@@ -10,11 +10,12 @@ namespace VehicleInventory.Domain.Aggregates
         public VehicleMake Make { get; private set; }
         public VehicleModel Model { get; private set; }
         public int LocationId { get; private set; }
-        public VehicleType VehicleType { get; private set; }
+        public string VehicleType { get; private set; }
         public VehicleStatus Status { get; private set; }
 
-        public VehicleAggregate(int vehicleId, VehicleMake make, VehicleModel model, int locationId, VehicleType vehicleType, VehicleStatus status)
+        public VehicleAggregate(int id, int vehicleId, VehicleMake make, VehicleModel model, int locationId, string vehicleType, VehicleStatus status)
         {
+            Id = id;
             VehicleId = vehicleId;
             Make = make;
             Model = model;

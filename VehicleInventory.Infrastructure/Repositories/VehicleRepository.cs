@@ -66,7 +66,7 @@ namespace VehicleInventory.Infrastructure.Repositories
 
             inventory.VehicleId = vehicle.VehicleId;
             inventory.VehicleLocationId = vehicle.LocationId;
-            inventory.VehicleStatusId = (int)vehicle.Status;
+            inventory.VehicleStatusId = VehicleMapper.MapToId(vehicle.Status);
             inventory.LastUpdated = DateTime.UtcNow;
 
             _context.SaveChanges();
