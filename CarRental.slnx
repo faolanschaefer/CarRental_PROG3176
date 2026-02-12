@@ -3,6 +3,8 @@
   <Folder Name="/WebServices/" />
   <Folder Name="/WebServices/CustomerProfile/">
     <Project Path="CustomerProfile.WebAPI/CustomerProfile.WebAPI.csproj" />
+  <Folder Name="/WebServices/Maintenance/">
+    <Project Path="Maintenance.WebAPI/Maintenance.WebAPI.csproj" Id="2f224e27-f405-4036-b8c5-93365cf81bc4" />
   </Folder>
   <Folder Name="/WebServices/VehicleInventory/">
     <Project Path="VehicleInventory.Application/VehicleInventory.Application.csproj" Id="3a4cf5ec-f370-4aad-965b-cdbfe0140d0b" />
