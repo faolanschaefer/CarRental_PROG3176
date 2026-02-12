@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "VehicleInventory.API": {
+    "VehicleInventory.WebAPI": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
