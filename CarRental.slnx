@@ -1,19 +1,18 @@
 <Solution>
-  <Folder Name="/Applications/" />
+  <Folder Name="/Applications/">
+    <Project Path="CarRental.MVC/CarRental.MVC.csproj" Id="306ed542-3e00-4e3c-9c9a-e9723d3039ce" />
+  </Folder>
   <Folder Name="/WebServices/" />
   <Folder Name="/WebServices/CustomerProfile/">
     <Project Path="CustomerProfile.WebAPI/CustomerProfile.WebAPI.csproj" />
   </Folder>
   <Folder Name="/WebServices/Maintenance/">
-    <Project Path="Maintenance.WebAPI/Maintenance.WebAPI.csproj"
-      Id="2f224e27-f405-4036-b8c5-93365cf81bc4" />
+    <Project Path="Maintenance.WebAPI/Maintenance.WebAPI.csproj" Id="2f224e27-f405-4036-b8c5-93365cf81bc4" />
   </Folder>
   <Folder Name="/WebServices/VehicleInventory/">
-    <Project Path="VehicleInventory.Application/VehicleInventory.Application.csproj"
-      Id="3a4cf5ec-f370-4aad-965b-cdbfe0140d0b" />
+    <Project Path="VehicleInventory.Application/VehicleInventory.Application.csproj" Id="3a4cf5ec-f370-4aad-965b-cdbfe0140d0b" />
     <Project Path="VehicleInventory.Domain/VehicleInventory.Domain.csproj" />
-    <Project Path="VehicleInventory.Infrastructure/VehicleInventory.Infrastructure.csproj"
-      Id="5c16fcc8-d33e-433e-8c26-ee32b0d927f8" />
+    <Project Path="VehicleInventory.Infrastructure/VehicleInventory.Infrastructure.csproj" Id="5c16fcc8-d33e-433e-8c26-ee32b0d927f8" />
     <Project Path="VehicleInventory.WebAPI/VehicleInventory.WebAPI.csproj" />
   </Folder>
 </Solution>
