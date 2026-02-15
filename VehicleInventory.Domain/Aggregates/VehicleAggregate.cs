@@ -29,13 +29,6 @@ namespace VehicleInventory.Domain.Aggregates
 
         public static VehicleAggregate Reconstitute(int id, VehicleDetails details, int locationId, VehicleStatus status)
         {
-            if (id <= 0)
-                throw new ArgumentException("ID must be a positive integer.", nameof(id));
-            if (details is null)
-                throw new ArgumentNullException(nameof(details));
-            if (locationId <= 0)
-                throw new ArgumentException("Location ID must be a positive integer.", nameof(locationId));
-
             return new VehicleAggregate
             {
                 Id = id,

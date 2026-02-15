@@ -18,29 +18,81 @@ namespace VehicleInventory.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            IEnumerable<VehicleDto> vehicles = _service.GetAllVehicles(); // TODO: Catch exceptions?
-            return Ok(vehicles);
+            try
+            {
+                IEnumerable<VehicleDto> vehicles = _service.GetAllVehicles();
+                return Ok(vehicles);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An unexpected error occurred: {ex.Message}");
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            VehicleDto vehicle = _service.GetVehicleById(id); // TODO: Catch exception
-            return Ok(vehicle);
+            try
+            {
+                VehicleDto vehicle = _service.GetVehicleById(id);
+                return Ok(vehicle);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An unexpected error occurred: {ex.Message}");
+            }
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateVehicleDto request) 
+        public IActionResult Create([FromBody] CreateVehicleDto request)
         {
-            VehicleDto createdVehicle = _service.CreateVehicle(request); // TODO: Catch exception?
-            return CreatedAtAction(nameof(GetById), new { id = createdVehicle.Id }, createdVehicle);
+            try
+            {
+                VehicleDto createdVehicle = _service.CreateVehicle(request);
+                return CreatedAtAction(nameof(GetById), new { id = createdVehicle.Id }, createdVehicle);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex) when (ex is ArgumentException || ex is ArgumentNullException)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An unexpected error occurred: {ex.Message}");
+            }
         }
 
         [HttpPut("{id}/status")]
-        public IActionResult UpdateStatus(int id, [FromBody] UpdateVehicleStatusDto request) 
+        public IActionResult UpdateStatus(int id, [FromBody] UpdateVehicleStatusDto request)
         {
-            _service.UpdateVehicleStatus(id, request); // TODO: Catch exception
-            return NoContent();
+            try
+            {
+                _service.UpdateVehicleStatus(id, request);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An unexpected error occurred: {ex.Message}");
+            }
         }
 
         [HttpPut("{id}/release")]
@@ -48,20 +100,39 @@ namespace VehicleInventory.API.Controllers
         {
             try
             {
-                _service.ReleaseVehicleReservation(id); 
+                _service.ReleaseVehicleReservation(id);
                 return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (InvalidOperationException ex)
             {
                 return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An unexpected error occurred: {ex.Message}");
             }
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _service.DeleteVehicle(id); // TODO: Catch exception
-            return NoContent();
+            try
+            {
+                _service.DeleteVehicle(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An unexpected error occurred: {ex.Message}");
+            }
         }
     }
 }

@@ -28,8 +28,11 @@ public class VehicleService
 
     public VehicleDto GetVehicleById(int id)
     {
+        if (id <= 0)
+            throw new ArgumentException("ID must be greater than zero.", nameof(id));
         VehicleAggregate vehicle = _repository.GetById(id)
             ?? throw new KeyNotFoundException($"Vehicle with ID {id} not found.");
+
         return MapToDto(vehicle);
     }
 
