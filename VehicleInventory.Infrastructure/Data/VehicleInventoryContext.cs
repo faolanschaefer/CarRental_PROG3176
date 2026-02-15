@@ -24,9 +24,6 @@ public partial class VehicleInventoryContext : DbContext
 
     public virtual DbSet<VehicleType8878889> VehicleTypes { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=VehicleInventoryDb;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true");
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Inventory8878889>(entity =>
