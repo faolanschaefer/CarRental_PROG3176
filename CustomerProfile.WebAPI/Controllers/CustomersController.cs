@@ -5,7 +5,7 @@ using CustomerProfile.WebAPI.Data;
 
 namespace CustomerProfile.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
     {

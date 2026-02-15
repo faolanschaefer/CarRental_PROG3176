@@ -5,7 +5,7 @@ using VehicleInventory.Application.Services;
 namespace VehicleInventory.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class VehiclesController : ControllerBase
     {
         private readonly VehicleService _service;

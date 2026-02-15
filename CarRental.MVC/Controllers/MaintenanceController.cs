@@ -24,7 +24,7 @@ namespace CarRental.MVC.Controllers
         {
             var client = _httpClientFactory.CreateClient("MaintenanceApi");
             var repairs = await client.GetFromJsonAsync<List<RepairHistoryViewModel>>(
-                $"api/maintenance/vehicles/{vehicleId}/repairs");
+                $"api/v1/maintenance/vehicles/{vehicleId}/repairs");
             return View(repairs ?? new List<RepairHistoryViewModel>());
         }
     }

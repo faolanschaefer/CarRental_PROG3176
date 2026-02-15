@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Maintenance.WebAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class MaintenanceController : Controller
     {
         private readonly IRepairHistoryService service;
