@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using VehicleInventory.Domain.Enums;
 
 namespace VehicleInventory.Application.DTOs
 {

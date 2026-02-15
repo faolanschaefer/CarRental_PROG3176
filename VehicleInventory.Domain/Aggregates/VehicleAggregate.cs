@@ -6,22 +6,43 @@ namespace VehicleInventory.Domain.Aggregates
     public class VehicleAggregate
     {
         public int Id { get; private set; }
-        public int VehicleId { get; private set; }
-        public VehicleMake Make { get; private set; }
-        public VehicleModel Model { get; private set; }
+        public VehicleDetails Details { get; private set; }
         public int LocationId { get; private set; }
-        public VehicleType VehicleType { get; private set; }
         public VehicleStatus Status { get; private set; }
 
-        public VehicleAggregate(int id, int vehicleId, VehicleMake make, VehicleModel model, int locationId, VehicleType vehicleType, VehicleStatus status)
+        private VehicleAggregate() { }
+
+        public static VehicleAggregate Create(VehicleDetails details, int locationId)
         {
-            Id = id;
-            VehicleId = vehicleId;
-            Make = make;
-            Model = model;
-            LocationId = locationId;
-            VehicleType = vehicleType;
-            Status = status;
+            if (details is null)
+                throw new ArgumentNullException(nameof(details));
+            if (locationId <= 0)
+                throw new ArgumentException("Location ID must be a positive integer.", nameof(locationId));
+
+            return new VehicleAggregate
+            {
+                Details = details,
+                LocationId = locationId,
+                Status = VehicleStatus.Available
+            };
+        }
+
+        public static VehicleAggregate Reconstitute(int id, VehicleDetails details, int locationId, VehicleStatus status)
+        {
+            if (id <= 0)
+                throw new ArgumentException("ID must be a positive integer.", nameof(id));
+            if (details is null)
+                throw new ArgumentNullException(nameof(details));
+            if (locationId <= 0)
+                throw new ArgumentException("Location ID must be a positive integer.", nameof(locationId));
+
+            return new VehicleAggregate
+            {
+                Id = id,
+                Details = details,
+                LocationId = locationId,
+                Status = status
+            };
         }
 
         public void MarkAvailable()

@@ -11,21 +11,23 @@ namespace VehicleInventory.Infrastructure.Mappers
             => new Inventory8878889
             {
                 Id = vehicle.Id,
-                VehicleId = vehicle.VehicleId,
+                VehicleId = vehicle.Details.VehicleId,
                 VehicleLocationId = vehicle.LocationId,
                 VehicleStatusId = StatusToId(vehicle.Status),
                 LastUpdated = DateTime.UtcNow
             };
 
         internal static VehicleAggregate InventoryToVehicleAggregate(Inventory8878889 inventory)
-            => new VehicleAggregate
+            => VehicleAggregate.Reconstitute
             (
                 id: inventory.Id,
-                vehicleId: inventory.VehicleId,
-                make: new VehicleMake(inventory.Vehicle.Make),
-                model: new VehicleModel(inventory.Vehicle.Model),
+                details: new VehicleDetails(
+                    vehicleId: inventory.VehicleId,
+                    make: inventory.Vehicle.Make,
+                    model: inventory.Vehicle.Model,
+                    vehicleType: IdToType(inventory.Vehicle.VehicleTypeId)
+                ),
                 locationId: inventory.VehicleLocationId,
-                vehicleType: IdToType(inventory.Vehicle.VehicleTypeId),
                 status: IdToStatus(inventory.VehicleStatusId)
             );
 

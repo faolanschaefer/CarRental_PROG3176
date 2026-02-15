@@ -4,6 +4,7 @@ using VehicleInventory.Infrastructure.Mappers;
 using Microsoft.EntityFrameworkCore;
 using VehicleInventory.Domain.Aggregates;
 using VehicleInventory.Infrastructure.Models;
+using VehicleInventory.Domain.ValueObjects;
 
 namespace VehicleInventory.Infrastructure.Repositories
 {
@@ -60,12 +61,20 @@ namespace VehicleInventory.Infrastructure.Repositories
             Inventory8878889 inventory = _context.Inventory.Find(vehicle.Id)
                 ?? throw new KeyNotFoundException($"Inventory with ID {vehicle.Id} not found."); 
 
-            inventory.VehicleId = vehicle.VehicleId;
+            inventory.VehicleId = vehicle.Details.VehicleId;
             inventory.VehicleLocationId = vehicle.LocationId;
             inventory.VehicleStatusId = VehicleMapper.StatusToId(vehicle.Status);
             inventory.LastUpdated = DateTime.UtcNow;
 
             _context.SaveChanges();
+        }
+
+        public VehicleDetails? GetVehicleDetails(int vehicleId)
+        {
+            Vehicle8878889? vehicle = _context.Vehicles.Find(vehicleId)
+                ?? throw new KeyNotFoundException($"Vehicle with ID {vehicleId} not found.");
+
+            return new VehicleDetails(vehicle.Id, vehicle.Make, vehicle.Model, VehicleMapper.IdToType(vehicle.VehicleTypeId));
         }
     }
 }

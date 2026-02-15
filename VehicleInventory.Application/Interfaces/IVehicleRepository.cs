@@ -1,4 +1,5 @@
 ﻿using VehicleInventory.Domain.Aggregates;
+using VehicleInventory.Domain.ValueObjects;
 
 namespace VehicleInventory.Application.Interfaces
 {
@@ -9,6 +10,6 @@ namespace VehicleInventory.Application.Interfaces
         IEnumerable<VehicleAggregate> GetAll();
         void Update(VehicleAggregate vehicle);
         void Delete(int id);
-
+        VehicleDetails? GetVehicleDetails(int vehicleId);
     }
 }

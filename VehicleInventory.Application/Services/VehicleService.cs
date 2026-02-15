@@ -1,9 +1,11 @@
+using VehicleInventory.Application.DTOs;
 using VehicleInventory.Application.Interfaces;
 using VehicleInventory.Domain.Aggregates;
+using VehicleInventory.Domain.Enums;
+using VehicleInventory.Domain.ValueObjects;
 
 namespace VehicleInventory.Application.Services;
 
-// TODO: Refactor to use domain services and aggregate roots 
 public class VehicleService
 {
     private readonly IVehicleRepository _repository;
@@ -13,49 +15,55 @@ public class VehicleService
         _repository = repository;
     }
 
-    public VehicleAggregate CreateVehicle(VehicleAggregate vehicle)
+    public VehicleDto CreateVehicle(CreateVehicleDto dto)
     {
-        return _repository.Create(vehicle);
+        VehicleDetails details = _repository.GetVehicleDetails(dto.VehicleId)
+            ?? throw new KeyNotFoundException($"Vehicle details with ID {dto.VehicleId} not found.");
+
+        VehicleAggregate vehicle = VehicleAggregate.Create(details, dto.LocationId);
+        VehicleAggregate createdVehicle = _repository.Create(vehicle);
+
+        return MapToDto(createdVehicle);
     }
 
-    public VehicleAggregate GetVehicleById(int id)
+    public VehicleDto GetVehicleById(int id)
     {
-        return _repository.GetById(id)
+        VehicleAggregate vehicle = _repository.GetById(id)
             ?? throw new KeyNotFoundException($"Vehicle with ID {id} not found.");
+        return MapToDto(vehicle);
     }
 
-    public IEnumerable<VehicleAggregate> GetAllVehicles()
+    public IEnumerable<VehicleDto> GetAllVehicles()
     {
-        return _repository.GetAll();
+        IEnumerable<VehicleAggregate> vehicles = _repository.GetAll();
+        return vehicles.Select(MapToDto);
     }
 
-    public void UpdateVehicleStatus(int id, string status)
+    public void UpdateVehicleStatus(int id, UpdateVehicleStatusDto dto)
     {
         VehicleAggregate vehicle = _repository.GetById(id)
             ?? throw new KeyNotFoundException($"Vehicle with ID {id} not found.");
 
-        switch (status)
+        switch (dto.Status)
         {
-            case "Available":
+            case VehicleStatus.Available:
                 vehicle.MarkAvailable();
                 break;
-            case "Reserved":
+            case VehicleStatus.Reserved:
                 vehicle.MarkReserved();
                 break;
-            case "Rented":
+            case VehicleStatus.Rented:
                 vehicle.MarkRented();
                 break;
-            case "Maintenance":
+            case VehicleStatus.Maintenance:
                 vehicle.MarkMaintenance();
                 break;
             default:
-                throw new ArgumentException($"{status} is not a valid Status.");
+                throw new ArgumentException($"{dto.Status} is not a valid Status.");
         }
 
         _repository.Update(vehicle);
     }
-
-    // TODO: Implement UpdateVehicleLocation and UpdateVehicle methods?
 
     public void ReleaseVehicleReservation(int id)
     {
@@ -70,5 +78,19 @@ public class VehicleService
     public void DeleteVehicle(int id)
     {
         _repository.Delete(id);
+    }
+
+    private static VehicleDto MapToDto(VehicleAggregate vehicle)
+    {
+        return new VehicleDto
+        {
+            Id = vehicle.Id,
+            VehicleId = vehicle.Details.VehicleId,
+            Make = vehicle.Details.Make,
+            Model = vehicle.Details.Model,
+            LocationId = vehicle.LocationId,
+            VehicleType = vehicle.Details.VehicleType.ToString(),
+            Status = vehicle.Status.ToString()
+        };
     }
 }
