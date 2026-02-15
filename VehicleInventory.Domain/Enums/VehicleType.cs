@@ -1,5 +1,8 @@
-﻿namespace VehicleInventory.Domain.Enums
+﻿using System.Text.Json.Serialization;
+
+namespace VehicleInventory.Domain.Enums
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum VehicleType
     {
         Sedan,

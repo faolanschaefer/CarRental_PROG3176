@@ -7,14 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Exceptions\**" />
     <Compile Remove="Interfaces\**" />
+    <Content Remove="Exceptions\**" />
     <Content Remove="Interfaces\**" />
+    <EmbeddedResource Remove="Exceptions\**" />
     <EmbeddedResource Remove="Interfaces\**" />
+    <None Remove="Exceptions\**" />
     <None Remove="Interfaces\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
   </ItemGroup>
 
 </Project>
