@@ -58,21 +58,23 @@ jobs:
           name: .net-app
 
       # Authenticate with Azure credentials using GitHub Actions secrets
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_185D15B4D606487682827CED91E4E31C }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_A39D0B3981004D67BD1935845630680F }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E512F122AF164044899A6C45FB8754A8 }}
+      # - name: Login to Azure
+      #   uses: azure/login@v2
+      #   with:
+      #     client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_185D15B4D606487682827CED91E4E31C }}
+      #     tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_A39D0B3981004D67BD1935845630680F }}
+      #     subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E512F122AF164044899A6C45FB8754A8 }}
 
-      # Deploy the service to the 'carrental-mvc' app in Azure
+      # Deploy the service to the 'carrental-mvc' app in Azure using the less secure publish profile authentication
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'carrental-mvc'
           slot-name: 'Production'
+          publish-profile: ${{ secrets.AZURE_MVCAPP_PUBLISH_PROFILE }}
           package: .
 
           
+
 
