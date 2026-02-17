@@ -63,7 +63,7 @@ namespace VehicleInventory.API.Controllers
             {
                 return NotFound(ex.Message);
             }
-            catch (Exception ex) when (ex is ArgumentException || ex is ArgumentNullException)
+            catch (ArgumentException ex) 
             {
                 return BadRequest(ex.Message);
             }
@@ -86,6 +86,10 @@ namespace VehicleInventory.API.Controllers
                 return NotFound(ex.Message);
             }
             catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (InvalidOperationException ex)
             {
                 return BadRequest(ex.Message);
             }
