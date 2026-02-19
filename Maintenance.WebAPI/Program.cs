@@ -10,6 +10,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IRepairHistoryService, FakeRepairHistoryService>();
 
+var usageCounts = new Dictionary<string, int>();
+builder.Services.AddSingleton(usageCounts);
+
 var app = builder.Build();
 
 app.Use(async (context, next) =>

@@ -1,0 +1,7 @@
+﻿@model System.Text.Json.JsonElement
+@{
+    ViewData["Title"] = "Usage";
+}
+<h1>Usage</h1>
+<p><b>Client ID: </b>@Model.GetProperty("clientId").GetString()</p>
+<p><b>Call Count: </b>@Model.GetProperty("callCount").GetInt32()</p>
