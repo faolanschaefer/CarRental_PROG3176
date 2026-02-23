@@ -15,6 +15,9 @@ builder.Services.AddSingleton(usageCounts);
 
 var app = builder.Build();
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.Use(async (context, next) =>
 {
     try
@@ -50,9 +53,6 @@ app.Use(async (context, next) =>
     }
     await next();
 });
-
-app.UseSwagger();
-app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
