@@ -52,10 +52,11 @@ namespace Maintenance.WebAPI.Controllers
                 });
             }
             var created = _repairService.AddRepair(repair);
+
             return CreatedAtAction(
-            nameof(GetRepairHistory),
-            new { vehicleId = created.VehicleId },
-            created
+                nameof(GetRepairHistory),
+                new { vehicleId = created.VehicleId },
+                created
             );
         }
         

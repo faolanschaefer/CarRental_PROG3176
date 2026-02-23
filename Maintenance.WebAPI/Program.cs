@@ -1,3 +1,4 @@
+using Maintenance.WebAPI.Middleware;
 using Maintenance.WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,22 +38,24 @@ app.Use(async (context, next) =>
     }
 });
 
-const string API_KEY = "MY_SECRET_KEY_123";
-app.Use(async (context, next) =>
-{
-    if (!context.Request.Headers.TryGetValue("X-Api-Key", out var key) ||
-    key != API_KEY)
-    {
-        context.Response.StatusCode = 401;
-        await context.Response.WriteAsJsonAsync(new
-        {
-            error = "Unauthorized",
-            message = "Missing or invalid API key."
-        });
-        return;
-    }
-    await next();
-});
+app.UseMiddleware<ApiKeyMiddleware>();
+
+//const string API_KEY = "MY_SECRET_KEY_123";
+//app.Use(async (context, next) =>
+//{
+//    if (!context.Request.Headers.TryGetValue("X-Api-Key", out var key) ||
+//    key != API_KEY)
+//    {
+//        context.Response.StatusCode = 401;
+//        await context.Response.WriteAsJsonAsync(new
+//        {
+//            error = "Unauthorized",
+//            message = "Missing or invalid API key."
+//        });
+//        return;
+//    }
+//    await next();
+//});
 
 app.UseHttpsRedirection();
 
