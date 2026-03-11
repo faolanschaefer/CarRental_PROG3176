@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VehicleInventory.Application.DTOs;
-using VehicleInventory.Application.Services;
+using VehicleInventory.Application.Interfaces;
 
 namespace VehicleInventory.API.Controllers
 {
@@ -8,9 +8,9 @@ namespace VehicleInventory.API.Controllers
     [Route("api/v1/[controller]")]
     public class VehiclesController : ControllerBase
     {
-        private readonly VehicleService _service;
+        private readonly IVehicleService _service;
 
-        public VehiclesController(VehicleService service)
+        public VehiclesController(IVehicleService service)
         {
             _service = service;
         }

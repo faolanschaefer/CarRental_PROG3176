@@ -6,7 +6,7 @@ using VehicleInventory.Domain.ValueObjects;
 
 namespace VehicleInventory.Application.Services;
 
-public class VehicleService
+public class VehicleService: IVehicleService
 {
     private readonly IVehicleRepository _repository;
 
