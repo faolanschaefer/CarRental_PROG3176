@@ -16,9 +16,6 @@ public partial class CustomerProfileContext : DbContext
 
     public virtual DbSet<Customer> Customers { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=CustomerProfileDb; Trusted_Connection=True; TrustServerCertificate=True; MultipleActiveResultSets=true;");
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Customer>(entity =>
