@@ -1,13 +1,11 @@
-﻿using VehicleInventory.Domain.Aggregates;
-using VehicleInventory.Domain.Enums;
-using VehicleInventory.Infrastructure.Models;
-using VehicleInventory.Domain.ValueObjects;
+﻿using VehicleInventory.Infrastructure.Models;
+using VehicleInventory.Domain.Vehicle;
 
 namespace VehicleInventory.Infrastructure.Mappers
 {
     internal static class VehicleMapper
     {
-        internal static Inventory8878889 VehicleAggregateToInventory(VehicleAggregate vehicle)
+        internal static Inventory8878889 VehicleAggregateToInventory(Vehicle vehicle)
             => new Inventory8878889
             {
                 Id = vehicle.Id,
@@ -17,15 +15,15 @@ namespace VehicleInventory.Infrastructure.Mappers
                 LastUpdated = DateTime.UtcNow
             };
 
-        internal static VehicleAggregate InventoryToVehicleAggregate(Inventory8878889 inventory)
-            => VehicleAggregate.Reconstitute
+        internal static Vehicle InventoryToVehicleAggregate(Inventory8878889 inventory)
+            => Vehicle.Reconstitute
             (
                 id: inventory.Id,
                 details: new VehicleDetails(
                     vehicleId: inventory.VehicleId,
                     make: inventory.Vehicle.Make,
                     model: inventory.Vehicle.Model,
-                    vehicleType: IdToType(inventory.Vehicle.VehicleTypeId)
+                    type: IdToType(inventory.Vehicle.VehicleTypeId)
                 ),
                 locationId: inventory.VehicleLocationId,
                 status: IdToStatus(inventory.VehicleStatusId)

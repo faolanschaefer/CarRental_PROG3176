@@ -2,9 +2,8 @@
 using VehicleInventory.Infrastructure.Data;
 using VehicleInventory.Infrastructure.Mappers;
 using Microsoft.EntityFrameworkCore;
-using VehicleInventory.Domain.Aggregates;
 using VehicleInventory.Infrastructure.Models;
-using VehicleInventory.Domain.ValueObjects;
+using VehicleInventory.Domain.Vehicle;
 
 namespace VehicleInventory.Infrastructure.Repositories
 {
@@ -17,7 +16,7 @@ namespace VehicleInventory.Infrastructure.Repositories
             _context = context;
         }
 
-        public VehicleAggregate Create(VehicleAggregate vehicle)
+        public Vehicle Create(Vehicle vehicle)
         {
             Inventory8878889 createdInventory = _context.Inventory.Add(VehicleMapper.VehicleAggregateToInventory(vehicle)).Entity;
             _context.SaveChanges();
@@ -35,7 +34,7 @@ namespace VehicleInventory.Infrastructure.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<VehicleAggregate> GetAll()
+        public IEnumerable<Vehicle> GetAll()
         {
             return _context.Inventory
                 .Include(i => i.Vehicle)
@@ -44,7 +43,7 @@ namespace VehicleInventory.Infrastructure.Repositories
                 .ToList();
         }
 
-        public VehicleAggregate? GetById(int id)
+        public Vehicle? GetById(int id)
         {
             Inventory8878889? inventory = _context.Inventory
                 .Include(i => i.Vehicle)
@@ -56,7 +55,7 @@ namespace VehicleInventory.Infrastructure.Repositories
             return VehicleMapper.InventoryToVehicleAggregate(inventory);
         }
 
-        public void Update(VehicleAggregate vehicle)
+        public void Update(Vehicle vehicle)
         {
             Inventory8878889 inventory = _context.Inventory.Find(vehicle.Id)
                 ?? throw new KeyNotFoundException($"Inventory with ID {vehicle.Id} not found."); 

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace VehicleInventory.Domain.Enums
+namespace VehicleInventory.Domain.Vehicle
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum VehicleType

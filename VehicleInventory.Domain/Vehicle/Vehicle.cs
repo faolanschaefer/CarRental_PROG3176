@@ -1,25 +1,22 @@
-﻿using VehicleInventory.Domain.Enums;
-using VehicleInventory.Domain.ValueObjects;
-
-namespace VehicleInventory.Domain.Aggregates
+﻿namespace VehicleInventory.Domain.Vehicle
 {
-    public class VehicleAggregate
+    public class Vehicle
     {
         public int Id { get; private set; }
         public VehicleDetails Details { get; private set; }
         public int LocationId { get; private set; }
         public VehicleStatus Status { get; private set; }
 
-        private VehicleAggregate() { }
+        private Vehicle() { }
 
-        public static VehicleAggregate Create(VehicleDetails details, int locationId)
+        public static Vehicle Create(VehicleDetails details, int locationId)
         {
             if (details is null)
                 throw new ArgumentNullException(nameof(details));
             if (locationId <= 0)
                 throw new ArgumentException("Location ID must be a positive integer.", nameof(locationId));
 
-            return new VehicleAggregate
+            return new Vehicle
             {
                 Details = details,
                 LocationId = locationId,
@@ -27,9 +24,9 @@ namespace VehicleInventory.Domain.Aggregates
             };
         }
 
-        public static VehicleAggregate Reconstitute(int id, VehicleDetails details, int locationId, VehicleStatus status)
+        public static Vehicle Reconstitute(int id, VehicleDetails details, int locationId, VehicleStatus status)
         {
-            return new VehicleAggregate
+            return new Vehicle
             {
                 Id = id,
                 Details = details,

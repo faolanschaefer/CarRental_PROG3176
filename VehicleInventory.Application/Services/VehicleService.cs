@@ -1,8 +1,6 @@
 using VehicleInventory.Application.DTOs;
 using VehicleInventory.Application.Interfaces;
-using VehicleInventory.Domain.Aggregates;
-using VehicleInventory.Domain.Enums;
-using VehicleInventory.Domain.ValueObjects;
+using VehicleInventory.Domain.Vehicle;
 
 namespace VehicleInventory.Application.Services;
 
@@ -20,8 +18,8 @@ public class VehicleService: IVehicleService
         VehicleDetails details = _repository.GetVehicleDetails(dto.VehicleId)
             ?? throw new KeyNotFoundException($"Vehicle details with ID {dto.VehicleId} not found.");
 
-        VehicleAggregate vehicle = VehicleAggregate.Create(details, dto.LocationId);
-        VehicleAggregate createdVehicle = _repository.Create(vehicle);
+        Vehicle vehicle = Vehicle.Create(details, dto.LocationId);
+        Vehicle createdVehicle = _repository.Create(vehicle);
 
         return MapToDto(createdVehicle);
     }
@@ -30,7 +28,7 @@ public class VehicleService: IVehicleService
     {
         if (id <= 0)
             throw new ArgumentException("ID must be greater than zero.", nameof(id));
-        VehicleAggregate vehicle = _repository.GetById(id)
+        Vehicle vehicle = _repository.GetById(id)
             ?? throw new KeyNotFoundException($"Vehicle with ID {id} not found.");
 
         return MapToDto(vehicle);
@@ -38,13 +36,13 @@ public class VehicleService: IVehicleService
 
     public IEnumerable<VehicleDto> GetAllVehicles()
     {
-        IEnumerable<VehicleAggregate> vehicles = _repository.GetAll();
+        IEnumerable<Vehicle> vehicles = _repository.GetAll();
         return vehicles.Select(MapToDto);
     }
 
     public void UpdateVehicleStatus(int id, UpdateVehicleStatusDto dto)
     {
-        VehicleAggregate vehicle = _repository.GetById(id)
+        Vehicle vehicle = _repository.GetById(id)
             ?? throw new KeyNotFoundException($"Vehicle with ID {id} not found.");
 
         switch (dto.Status)
@@ -70,7 +68,7 @@ public class VehicleService: IVehicleService
 
     public void ReleaseVehicleReservation(int id)
     {
-        VehicleAggregate vehicle = _repository.GetById(id)
+        Vehicle vehicle = _repository.GetById(id)
             ?? throw new KeyNotFoundException($"Vehicle with ID {id} not found.");
 
         vehicle.ReleaseReservation();
@@ -83,16 +81,16 @@ public class VehicleService: IVehicleService
         _repository.Delete(id);
     }
 
-    private static VehicleDto MapToDto(VehicleAggregate vehicle)
+    private static VehicleDto MapToDto(Vehicle vehicle)
     {
         return new VehicleDto
         {
             Id = vehicle.Id,
             VehicleId = vehicle.Details.VehicleId,
-            Make = vehicle.Details.Make,
-            Model = vehicle.Details.Model,
+            Make = vehicle.Details.Make.Value,
+            Model = vehicle.Details.Model.Value,
             LocationId = vehicle.LocationId,
-            VehicleType = vehicle.Details.VehicleType.ToString(),
+            VehicleType = vehicle.Details.Type.ToString(),
             Status = vehicle.Status.ToString()
         };
     }
