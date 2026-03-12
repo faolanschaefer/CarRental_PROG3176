@@ -1,4 +1,4 @@
-﻿namespace Maintenance.WebAPI.Middleware
+﻿namespace CarRental.Gateway.Middleware
 {
     public class ApiKeyMiddleware
     {

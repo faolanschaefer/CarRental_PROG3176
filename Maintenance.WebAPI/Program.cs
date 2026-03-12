@@ -1,4 +1,4 @@
-using Maintenance.WebAPI.Middleware;
+using CarRental.Gateway.Middleware;
 using Maintenance.WebAPI.Services;
 using Microsoft.OpenApi;
 
@@ -8,24 +8,27 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
-    {
-        In = ParameterLocation.Header,
-        Name = "X-API-KEY",
-        Type = SecuritySchemeType.ApiKey,
-        Description = "API Key authentication"
-    });
+builder.Services.AddSwaggerGen();
 
-    options.AddSecurityRequirement(doc => new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecuritySchemeReference("ApiKey", doc),
-            new List<string>()
-        }
-    });
-});
+// Configure Swagger to include API key authentication
+//builder.Services.AddSwaggerGen(options =>
+//{
+//    options.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+//    {
+//        In = ParameterLocation.Header,
+//        Name = "X-API-KEY",
+//        Type = SecuritySchemeType.ApiKey,
+//        Description = "API Key authentication"
+//    });
+
+//    options.AddSecurityRequirement(doc => new OpenApiSecurityRequirement
+//    {
+//        {
+//            new OpenApiSecuritySchemeReference("ApiKey", doc),
+//            new List<string>()
+//        }
+//    });
+//});
 
 builder.Services.AddScoped<IRepairHistoryService, FakeRepairHistoryService>();
 
@@ -34,11 +37,16 @@ builder.Services.AddSingleton(usageCounts);
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseMiddleware<ExceptionMiddleware>();
 
+// Basic exception handling
 //app.Use(async (context, next) =>
 //{
 //    try
@@ -58,8 +66,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 //    }
 //});
 
-app.UseMiddleware<ApiKeyMiddleware>();
-
+// Basic API key handling
 //const string API_KEY = "MY_SECRET_KEY_123";
 //app.Use(async (context, next) =>
 //{

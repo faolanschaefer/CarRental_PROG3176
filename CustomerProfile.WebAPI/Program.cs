@@ -1,3 +1,4 @@
+using CarRental.Gateway.Middleware;
 using CustomerProfile.WebAPI.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

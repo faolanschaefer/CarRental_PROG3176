@@ -1,3 +1,4 @@
+using CarRental.Gateway.Middleware;
 using Microsoft.EntityFrameworkCore;
 using VehicleInventory.Application.Interfaces;
 using VehicleInventory.Application.Services;
@@ -26,6 +27,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
