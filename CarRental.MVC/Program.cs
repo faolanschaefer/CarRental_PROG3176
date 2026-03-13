@@ -3,10 +3,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddHttpClient("MaintenanceApi", (sp, client) =>
+builder.Services.AddHttpClient("CarRentalApi", (sp, client) =>
 {
     var config = sp.GetRequiredService<IConfiguration>();
-    client.BaseAddress = new Uri(config["MaintenanceApi:BaseUrl"]!);
+    client.BaseAddress = new Uri(config["CarRentalApi:BaseUrl"]!);
     client.DefaultRequestHeaders.Add("X-Api-Key", config["Authentication:ApiKey"]);
 });
 

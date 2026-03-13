@@ -5,11 +5,11 @@ namespace CarRental.MVC.Controllers
 {
     public class MaintenanceController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient _httpClient;
 
         public MaintenanceController(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+            _httpClient = httpClientFactory.CreateClient("CarRentalApi");
         }
 
         [HttpGet]
@@ -22,24 +22,21 @@ namespace CarRental.MVC.Controllers
 
         public async Task<IActionResult> History(int vehicleId)
         {
-            var client = _httpClientFactory.CreateClient("MaintenanceApi");
-            var repairs = await client.GetFromJsonAsync<List<RepairHistoryViewModel>>(
+            var repairs = await _httpClient.GetFromJsonAsync<List<RepairHistoryViewModel>>(
                 $"api/v1/maintenance/vehicles/{vehicleId}/repairs");
             return View(repairs ?? new List<RepairHistoryViewModel>());
         }
 
         public async Task<IActionResult> Usage()
         {
-            var client = _httpClientFactory.CreateClient("MaintenanceApi");
-            var result = await client.GetFromJsonAsync<object>("api/v1/maintenance/usage");
+            var result = await _httpClient.GetFromJsonAsync<object>("api/v1/maintenance/usage");
             return View(result);
         }
 
         // Huh?
         //public async Task<IActionResult> Transfer(int fromId, int toId, decimal amount)
         //{
-        //    var client = _httpClientFactory.CreateClient("MaintenanceApi");
-        //    var response = await client.PostAsync(
+        //    var response = await _httpClient.PostAsync(
         //    $"api/v1/maintenance/transfer?fromId={fromId}&toId={toId}&amount={amount}",
         //    null);
         //    var content = await response.Content.ReadAsStringAsync();
