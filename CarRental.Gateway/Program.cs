@@ -1,4 +1,5 @@
 using CarRental.Gateway.Middleware;
+using Yarp.ReverseProxy.Transforms;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +10,11 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddReverseProxy()
-    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"))
+    .AddTransforms(builderContext =>
+    {
+        builderContext.AddRequestHeader("X-Internal-Access-Key", builder.Configuration["InternalAccessKey"] ?? throw new ArgumentNullException("Internal access key not configured."));
+    });
 
 var app = builder.Build();
 
