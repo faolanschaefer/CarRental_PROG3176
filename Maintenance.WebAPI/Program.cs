@@ -1,6 +1,5 @@
-using CarRental.Gateway.Middleware;
+using WebApiMiddleware;
 using Maintenance.WebAPI.Services;
-using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 

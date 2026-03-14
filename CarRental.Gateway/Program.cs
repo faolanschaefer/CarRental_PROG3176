@@ -1,4 +1,4 @@
-using CarRental.Gateway.Middleware;
+using WebApiMiddleware;
 using Yarp.ReverseProxy.Transforms;
 
 var builder = WebApplication.CreateBuilder(args);

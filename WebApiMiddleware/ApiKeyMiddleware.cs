@@ -1,4 +1,7 @@
-﻿namespace CarRental.Gateway.Middleware
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+
+namespace WebApiMiddleware
 {
     public class ApiKeyMiddleware
     {

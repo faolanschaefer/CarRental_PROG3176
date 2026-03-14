@@ -1,4 +1,7 @@
-﻿namespace CarRental.Gateway.Middleware
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+
+namespace WebApiMiddleware
 {
     public class ExceptionMiddleware
     {

@@ -1,4 +1,4 @@
-using CarRental.Gateway.Middleware;
+using WebApiMiddleware;
 using CustomerProfile.WebAPI.Data;
 using Microsoft.EntityFrameworkCore;
 

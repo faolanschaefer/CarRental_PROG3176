@@ -1,4 +1,4 @@
-using CarRental.Gateway.Middleware;
+using WebApiMiddleware;
 using Microsoft.EntityFrameworkCore;
 using VehicleInventory.Application.Interfaces;
 using VehicleInventory.Application.Services;
