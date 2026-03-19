@@ -20,4 +20,7 @@
     <Project Path="VehicleInventory.Infrastructure/VehicleInventory.Infrastructure.csproj" Id="5c16fcc8-d33e-433e-8c26-ee32b0d927f8" />
     <Project Path="VehicleInventory.WebAPI/VehicleInventory.WebAPI.csproj" />
   </Folder>
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
 </Solution>

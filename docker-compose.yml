@@ -1,0 +1,13 @@
+services:
+  carrental.gateway:
+    image: ${DOCKER_REGISTRY-}carrentalgateway
+    build:
+      context: .
+      dockerfile: CarRental.Gateway/Dockerfile
+
+  maintenance.webapi:
+    image: ${DOCKER_REGISTRY-}maintenancewebapi
+    build:
+      context: .
+      dockerfile: Maintenance.WebAPI/Dockerfile
+
