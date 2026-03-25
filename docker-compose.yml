@@ -4,22 +4,38 @@ services:
     build:
       context: .
       dockerfile: CarRental.Gateway/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Release
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
 
   maintenance.webapi:
     image: ${DOCKER_REGISTRY-}maintenancewebapi
     build:
       context: .
       dockerfile: Maintenance.WebAPI/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Release
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
 
   customerprofile.webapi:
     image: ${DOCKER_REGISTRY-}customerprofilewebapi
     build:
       context: .
       dockerfile: CustomerProfile.WebAPI/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Release
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
 
   vehicleinventory.webapi:
     image: ${DOCKER_REGISTRY-}vehicleinventorywebapi
     build:
       context: .
       dockerfile: VehicleInventory.WebAPI/Dockerfile
-
+      args:
+        BUILD_CONFIGURATION: Release
+    environment:
+      - ASPNETCORE_URLS=http://+:8080

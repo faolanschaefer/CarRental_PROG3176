@@ -37,9 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CarRental.Gateway\CarRental.Gateway.csproj" />
     <ProjectReference Include="..\VehicleInventory.Application\VehicleInventory.Application.csproj" />
     <ProjectReference Include="..\VehicleInventory.Infrastructure\VehicleInventory.Infrastructure.csproj" />
+    <ProjectReference Include="..\WebApiMiddleware\WebApiMiddleware.csproj" />
   </ItemGroup>
 
 </Project>

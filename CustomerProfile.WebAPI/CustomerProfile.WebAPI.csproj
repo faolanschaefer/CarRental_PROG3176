@@ -23,13 +23,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CarRental.Gateway\CarRental.Gateway.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="..\.dockerignore">
       <Link>.dockerignore</Link>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebApiMiddleware\WebApiMiddleware.csproj" />
   </ItemGroup>
 
 </Project>
