@@ -11,3 +11,15 @@ services:
       context: .
       dockerfile: Maintenance.WebAPI/Dockerfile
 
+  customerprofile.webapi:
+    image: ${DOCKER_REGISTRY-}customerprofilewebapi
+    build:
+      context: .
+      dockerfile: CustomerProfile.WebAPI/Dockerfile
+
+  vehicleinventory.webapi:
+    image: ${DOCKER_REGISTRY-}vehicleinventorywebapi
+    build:
+      context: .
+      dockerfile: VehicleInventory.WebAPI/Dockerfile
+
