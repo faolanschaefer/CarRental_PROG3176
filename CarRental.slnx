@@ -2,6 +2,16 @@
   <Folder Name="/Applications/">
     <Project Path="CarRental.MVC/CarRental.MVC.csproj" Id="306ed542-3e00-4e3c-9c9a-e9723d3039ce" />
   </Folder>
+  <Folder Name="/Kubernetes/">
+    <File Path="Kubernetes/carrental-gateway-deployment.yaml" />
+    <File Path="Kubernetes/carrental-gateway-service.yaml" />
+    <File Path="Kubernetes/customerprofile-webapi-deployment.yaml" />
+    <File Path="Kubernetes/customerprofile-webapi-service.yaml" />
+    <File Path="Kubernetes/maintenance-webapi-deployment.yaml" />
+    <File Path="Kubernetes/maintenance-webapi-service.yaml" />
+    <File Path="Kubernetes/vehicleinventory-webapi-deployment.yaml" />
+    <File Path="Kubernetes/vehicleinventory-webapi-service.yaml" />
+  </Folder>
   <Folder Name="/Resources/">
     <Project Path="WebApiMiddleware/WebApiMiddleware.csproj" Id="2b2f48d9-64ec-40d0-9232-c5ff2160f91b" />
   </Folder>
