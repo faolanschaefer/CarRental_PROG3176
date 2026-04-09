@@ -1,6 +1,6 @@
 services:
-  carrental.gateway:
-    image: ${DOCKER_REGISTRY-}carrentalgateway
+  carrental-gateway:
+    image: carrental-gateway
     build:
       context: .
       dockerfile: CarRental.Gateway/Dockerfile
@@ -9,9 +9,15 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
+    depends_on:
+      - maintenance-webapi
+      - customerprofile-webapi
+      - vehicleinventory-webapi
+    ports:
+      - 5050:8080
 
-  maintenance.webapi:
-    image: ${DOCKER_REGISTRY-}maintenancewebapi
+  maintenance-webapi:
+    image: maintenance-webapi
     build:
       context: .
       dockerfile: Maintenance.WebAPI/Dockerfile
@@ -19,9 +25,11 @@ services:
         BUILD_CONFIGURATION: Release
     environment:
       - ASPNETCORE_URLS=http://+:8080
+    ports:
+      - 5051:8080
 
-  customerprofile.webapi:
-    image: ${DOCKER_REGISTRY-}customerprofilewebapi
+  customerprofile-webapi:
+    image: customerprofile-webapi
     build:
       context: .
       dockerfile: CustomerProfile.WebAPI/Dockerfile
@@ -29,9 +37,11 @@ services:
         BUILD_CONFIGURATION: Release
     environment:
       - ASPNETCORE_URLS=http://+:8080
+    ports:
+      - 5052:8080
 
-  vehicleinventory.webapi:
-    image: ${DOCKER_REGISTRY-}vehicleinventorywebapi
+  vehicleinventory-webapi:
+    image: vehicleinventory-webapi
     build:
       context: .
       dockerfile: VehicleInventory.WebAPI/Dockerfile
@@ -39,3 +49,10 @@ services:
         BUILD_CONFIGURATION: Release
     environment:
       - ASPNETCORE_URLS=http://+:8080
+    ports:
+      - 5053:8080
+
+networks:
+  default:
+    name: carrental
+    driver: bridge
