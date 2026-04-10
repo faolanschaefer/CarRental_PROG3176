@@ -1,0 +1,219 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o k8s-manifests.yaml
+    kompose.version: 1.38.0 (HEAD)
+  labels:
+    io.kompose.service: carrental-gateway
+  name: carrental-gateway
+spec:
+  ports:
+    - name: "5050"
+      port: 5050
+      targetPort: 8080
+  selector:
+    io.kompose.service: carrental-gateway
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o k8s-manifests.yaml
+    kompose.version: 1.38.0 (HEAD)
+  labels:
+    io.kompose.service: customerprofile-webapi
+  name: customerprofile-webapi
+spec:
+  ports:
+    - name: "5052"
+      port: 5052
+      targetPort: 8080
+  selector:
+    io.kompose.service: customerprofile-webapi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o k8s-manifests.yaml
+    kompose.version: 1.38.0 (HEAD)
+  labels:
+    io.kompose.service: maintenance-webapi
+  name: maintenance-webapi
+spec:
+  ports:
+    - name: "5051"
+      port: 5051
+      targetPort: 8080
+  selector:
+    io.kompose.service: maintenance-webapi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o k8s-manifests.yaml
+    kompose.version: 1.38.0 (HEAD)
+  labels:
+    io.kompose.service: vehicleinventory-webapi
+  name: vehicleinventory-webapi
+spec:
+  ports:
+    - name: "5053"
+      port: 5053
+      targetPort: 8080
+  selector:
+    io.kompose.service: vehicleinventory-webapi
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o k8s-manifests.yaml
+    kompose.version: 1.38.0 (HEAD)
+  labels:
+    io.kompose.service: carrental-gateway
+  name: carrental-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: carrental-gateway
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -o k8s-manifests.yaml
+        kompose.version: 1.38.0 (HEAD)
+      labels:
+        io.kompose.service: carrental-gateway
+    spec:
+      containers:
+        - env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+            - name: ASPNETCORE_URLS
+              value: http://+:8080
+          image: ghcr.io/faolanschaefer/carrental-gateway:latest
+          name: carrental-gateway
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: ghcr-secret
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o k8s-manifests.yaml
+    kompose.version: 1.38.0 (HEAD)
+  labels:
+    io.kompose.service: customerprofile-webapi
+  name: customerprofile-webapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: customerprofile-webapi
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -o k8s-manifests.yaml
+        kompose.version: 1.38.0 (HEAD)
+      labels:
+        io.kompose.service: customerprofile-webapi
+    spec:
+      containers:
+        - env:
+            - name: ASPNETCORE_URLS
+              value: http://+:8080
+          image: ghcr.io/faolanschaefer/customerprofile-webapi:latest
+          name: customerprofile-webapi
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: ghcr-secret
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o k8s-manifests.yaml
+    kompose.version: 1.38.0 (HEAD)
+  labels:
+    io.kompose.service: maintenance-webapi
+  name: maintenance-webapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: maintenance-webapi
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -o k8s-manifests.yaml
+        kompose.version: 1.38.0 (HEAD)
+      labels:
+        io.kompose.service: maintenance-webapi
+    spec:
+      containers:
+        - env:
+            - name: ASPNETCORE_URLS
+              value: http://+:8080
+          image: ghcr.io/faolanschaefer/maintenance-webapi:latest
+          name: maintenance-webapi
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: ghcr-secret
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o k8s-manifests.yaml
+    kompose.version: 1.38.0 (HEAD)
+  labels:
+    io.kompose.service: vehicleinventory-webapi
+  name: vehicleinventory-webapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: vehicleinventory-webapi
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -o k8s-manifests.yaml
+        kompose.version: 1.38.0 (HEAD)
+      labels:
+        io.kompose.service: vehicleinventory-webapi
+    spec:
+      containers:
+        - env:
+            - name: ASPNETCORE_URLS
+              value: http://+:8080
+          image: ghcr.io/faolanschaefer/vehicleinventory-webapi:latest
+          name: vehicleinventory-webapi
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: ghcr-secret
+
