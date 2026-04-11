@@ -38,6 +38,32 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Probe token package permissions (GH API)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          echo "Checking authenticated user:"
+          curl -sSf -H "Authorization: Bearer $GH_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/user | jq -r '.login'
+      
+          echo "Checking workflow token permissions header:"
+          curl -i -sS -H "Authorization: Bearer $GH_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/${{ github.repository }} \
+            | sed -n '1,40p'
+      
+            # Produce tags: latest + short SHA for traceability
+            - name: Extract image metadata
+              id: meta
+              uses: docker/metadata-action@v5
+              with:
+                images: ${{ env.REGISTRY }}/${{ env.USERNAME }}/${{ matrix.service }}
+                tags: |
+                  type=raw,value=latest
+                  type=sha,prefix=,format=short
+
       # Log in to GHCR using the workflow's GITHUB_TOKEN — no secret needed
       - name: Log in to GHCR
         uses: docker/login-action@v3
@@ -45,16 +71,6 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      # Produce tags: latest + short SHA for traceability
-      - name: Extract image metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.USERNAME }}/${{ matrix.service }}
-          tags: |
-            type=raw,value=latest
-            type=sha,prefix=,format=short
 
       - name: Show token permissions
         run: |
