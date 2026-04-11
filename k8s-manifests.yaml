@@ -1,3 +1,10 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    azure.workload.identity/client-id: "27eb1ef3-c80d-4f93-b76d-607aa5fb4e88"
+  name: carrental-sa
+  namespace: default
 ---
 apiVersion: v1
 kind: Service
@@ -112,7 +119,9 @@ spec:
         kompose.version: 1.38.0 (HEAD)
       labels:
         io.kompose.service: carrental-gateway
+        azure.workload.identity/use: "true"
     spec:
+      serviceAccountName: carrental-sa
       containers:
         - env:
             - name: ASPNETCORE_ENVIRONMENT
@@ -150,7 +159,9 @@ spec:
         kompose.version: 1.38.0 (HEAD)
       labels:
         io.kompose.service: carrental-mvc
+        azure.workload.identity/use: "true"
     spec:
+      serviceAccountName: carrental-sa
       containers:
         - env:
             - name: ASPNETCORE_URLS
@@ -186,7 +197,9 @@ spec:
         kompose.version: 1.38.0 (HEAD)
       labels:
         io.kompose.service: customerprofile-webapi
+        azure.workload.identity/use: "true"
     spec:
+      serviceAccountName: carrental-sa
       containers:
         - env:
             - name: ASPNETCORE_URLS
@@ -222,7 +235,9 @@ spec:
         kompose.version: 1.38.0 (HEAD)
       labels:
         io.kompose.service: maintenance-webapi
+        azure.workload.identity/use: "true"
     spec:
+      serviceAccountName: carrental-sa
       containers:
         - env:
             - name: ASPNETCORE_URLS
@@ -258,7 +273,9 @@ spec:
         kompose.version: 1.38.0 (HEAD)
       labels:
         io.kompose.service: vehicleinventory-webapi
+        azure.workload.identity/use: "true"
     spec:
+      serviceAccountName: carrental-sa
       containers:
         - env:
             - name: ASPNETCORE_URLS
