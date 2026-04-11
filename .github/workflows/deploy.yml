@@ -10,16 +10,14 @@ env:
   REGISTRY: ghcr.io
   USERNAME: ${{ github.repository_owner }}
 
-permissions:
-  contents: read
-  packages: write
-  id-token: write
-
 jobs:
   # ── Build & push all service images in parallel ──────────────────────────
   build:
     name: Build ${{ matrix.service }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     strategy:
       fail-fast: false
@@ -39,17 +37,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
-      - name: Probe token access (repo endpoint)
-        env:
-          GH_TOKEN: ${{ secrets.GHCR_PAT }}
-        run: |
-          set -euo pipefail
-          curl -i -sS \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/${{ github.repository }} | sed -n '1,40p'
 
       # Log in to GHCR using a PAT
       - name: Log in to GHCR
@@ -58,6 +45,16 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_PAT }}
+          
+      # Produce tags: latest + short SHA for traceability
+      - name: Extract image metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.USERNAME }}/${{ matrix.service }}
+          tags: |
+            type=raw,value=latest
+            type=sha,prefix=,format=short
           
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -73,6 +70,9 @@ jobs:
     name: Deploy to AKS
     runs-on: ubuntu-latest
     needs: build
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       - name: Checkout
