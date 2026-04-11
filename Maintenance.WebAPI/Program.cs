@@ -84,7 +84,8 @@ app.UseMiddleware<ExceptionMiddleware>();
 //    await next();
 //});
 
-app.UseHttpsRedirection();
+// Causes problems with interservice communication when running in Docker
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

@@ -4,6 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +12,9 @@
     <Compile Remove="Models\**" />
     <Content Remove="DTOs\**" />
     <Content Remove="Models\**" />
+    <Content Include="..\.dockerignore">
+      <Link>.dockerignore</Link>
+    </Content>
     <EmbeddedResource Remove="DTOs\**" />
     <EmbeddedResource Remove="Models\**" />
     <None Remove="DTOs\**" />
@@ -33,9 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CarRental.Gateway\CarRental.Gateway.csproj" />
     <ProjectReference Include="..\VehicleInventory.Application\VehicleInventory.Application.csproj" />
     <ProjectReference Include="..\VehicleInventory.Infrastructure\VehicleInventory.Infrastructure.csproj" />
+    <ProjectReference Include="..\WebApiMiddleware\WebApiMiddleware.csproj" />
   </ItemGroup>
 
 </Project>
