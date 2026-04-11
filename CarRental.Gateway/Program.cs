@@ -10,11 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddReverseProxy()
-    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"))
-    .AddTransforms(builderContext =>
-    {
-        builderContext.AddRequestHeader("X-Internal-Access-Key", builder.Configuration["InternalAccessKey"] ?? throw new ArgumentNullException("Internal access key not configured."));
-    });
+    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
 var app = builder.Build();
 
