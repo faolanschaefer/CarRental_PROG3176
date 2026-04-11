@@ -28,7 +28,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<InternalAccessMiddleware>();
 app.UseMiddleware<ExceptionMiddleware>();
 
 // app.UseHttpsRedirection();
