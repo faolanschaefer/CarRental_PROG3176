@@ -10,14 +10,16 @@ env:
   REGISTRY: ghcr.io
   USERNAME: faolanschaefer
 
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
 jobs:
   # ── Build & push all service images in parallel ──────────────────────────
   build:
     name: Build ${{ matrix.service }}
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
 
     strategy:
       fail-fast: false
@@ -71,9 +73,6 @@ jobs:
     name: Deploy to AKS
     runs-on: ubuntu-latest
     needs: build
-    permissions:
-      id-token: write  # required for OIDC login to Azure
-      contents: read
 
     steps:
       - name: Checkout
