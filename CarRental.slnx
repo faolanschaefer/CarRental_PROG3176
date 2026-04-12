@@ -3,17 +3,13 @@
     <Project Path="CarRental.MVC/CarRental.MVC.csproj" Id="306ed542-3e00-4e3c-9c9a-e9723d3039ce" />
   </Folder>
   <Folder Name="/Kubernetes/">
-    <File Path="Kubernetes/carrental-gateway-deployment.yaml" />
-    <File Path="Kubernetes/carrental-gateway-service.yaml" />
-    <File Path="Kubernetes/customerprofile-webapi-deployment.yaml" />
-    <File Path="Kubernetes/customerprofile-webapi-service.yaml" />
-    <File Path="Kubernetes/maintenance-webapi-deployment.yaml" />
-    <File Path="Kubernetes/maintenance-webapi-service.yaml" />
-    <File Path="Kubernetes/vehicleinventory-webapi-deployment.yaml" />
-    <File Path="Kubernetes/vehicleinventory-webapi-service.yaml" />
+    <File Path="k8s-manifests.yaml" />
   </Folder>
   <Folder Name="/Resources/">
     <Project Path="WebApiMiddleware/WebApiMiddleware.csproj" Id="2b2f48d9-64ec-40d0-9232-c5ff2160f91b" />
+  </Folder>
+  <Folder Name="/Scripts/">
+    <File Path="Scripts/build-and-push.sh" />
   </Folder>
   <Folder Name="/WebServices/">
     <Project Path="CarRental.Gateway/CarRental.Gateway.csproj" Id="28f5cca8-2c74-49d3-b14e-019c225a30e9" />
